@@ -2,6 +2,47 @@ import streamlit as st
 import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
+
+# Professional Dashboard Configuration
+st.set_page_config(
+    page_title="HVAC Intelligence Dashboard",
+    page_icon="❄️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Custom Dashboard Styling
+st.markdown("""
+<style>
+    .stApp {
+        background-color: #0B1220;
+        color: #F8FAFC;
+    }
+
+    h1, h2, h3 {
+        color: #38BDF8 !important;
+    }
+
+    div[data-testid="stMetric"] {
+        background-color: #172338;
+        border: 1px solid #334155;
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    div[data-testid="stMetricLabel"] {
+        color: #CBD5E1;
+    }
+
+    div[data-testid="stMetricValue"] {
+        color: #F8FAFC;
+    }
+
+    section[data-testid="stSidebar"] {
+        background-color: #111C30;
+    }
+</style>
+""", unsafe_allow_html=True)
 # Page settings
 st.set_page_config(
     page_title="HVAC ML Dashboard",
@@ -29,10 +70,9 @@ col2.metric("MAE", "1.06")
 st.divider()
 
 # Building parameters
-st.subheader("🏢 Building Parameters")
-
-col1, col2 = st.columns(2)
-
+st.sidebar.subheader("🏢 Building Parameters")
+col1 = st.sidebar.container()
+col2 = st.sidebar.container()
 with col1:
     x1 = st.slider("Relative Compactness", 0.62, 0.98, 0.75)
     x2 = st.slider("Surface Area", 514.5, 808.5, 673.75)
@@ -53,8 +93,10 @@ input_data = pd.DataFrame(
 )
 
 # Prediction button
-if st.button("🔍 Predict Cooling Load"):
-
+if st.sidebar.button(
+    "🔍 Predict Cooling Load",
+    use_container_width=True
+):
     prediction = model.predict(input_data)
 
     st.success(
@@ -109,4 +151,47 @@ st.line_chart(
     comparison[["Actual", "Predicted"]],
     x_label="Test Sample",
     y_label="Cooling Load"
+)
+
+# Prediction Error Analysis
+st.divider()
+
+st.subheader("📉 Prediction Error Analysis")
+
+comparison["Error"] = (
+    comparison["Actual"] - comparison["Predicted"]
+)
+
+st.bar_chart(
+    comparison["Error"],
+    x_label="Test Sample",
+    y_label="Prediction Error"
+)
+
+st.write(
+    "This chart shows the difference between "
+    "actual and predicted cooling loads."
+)
+
+# Machine Learning Model Comparison
+st.divider()
+
+st.subheader("🤖 Machine Learning Model Comparison")
+
+model_results = pd.read_csv("model_comparison.csv")
+
+st.dataframe(model_results, use_container_width=True)
+
+st.subheader("Mean Absolute Error Comparison")
+
+st.bar_chart(
+    model_results.set_index("Model")["MAE"],
+    y_label="MAE (Lower is Better)"
+)
+
+st.subheader("R² Score Comparison")
+
+st.bar_chart(
+    model_results.set_index("Model")["R2"],
+    y_label="R² (Higher is Better)"
 )
