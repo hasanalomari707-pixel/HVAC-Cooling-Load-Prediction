@@ -122,3 +122,27 @@ Its predictions are limited by the dataset and input variables used during train
 ## 👨‍💻 Project Category
 
 Mechanical Engineering | HVAC | Machine Learning | Data Analytics
+
+## 📸 Project Screenshots
+
+The following screenshots demonstrate the HVAC Cooling Load Prediction dashboard, model predictions, and data visualizations.
+
+## 📸 Project Screenshots
+
+The following screenshots demonstrate the HVAC cooling load prediction dashboard, model predictions, and data visualizations.
+
+### 1. HVAC Prediction Dashboard
+
+![HVAC Dashboard](images/WhatsApp%20Image%202026-11-15%20at%207.20.07%20PM.jpeg)
+
+### 2. Model Visualization
+
+![Model Visualization](images/WhatsApp%20Image%202026-11-15%20at%207.20.10%20PM.jpeg)
+
+### 3. Prediction Results
+
+![Prediction Results](images/WhatsApp%20Image%202026-11-15%20at%207.20.49%20PM.jpeg)
+
+### 4. Additional Analysis
+
+![Additional Analysis](images/WhatsApp%20Image%202026-11-15%20at%207.21.03%20PM.jpeg)
