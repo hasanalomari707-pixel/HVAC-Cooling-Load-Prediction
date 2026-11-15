@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
-
+import matplotlib.pyplot as plt
 # Page settings
 st.set_page_config(
     page_title="HVAC ML Dashboard",
@@ -65,4 +65,48 @@ st.divider()
 
 st.caption(
     "HVAC Machine Learning Project | Mechanical Engineering"
+)
+
+
+# Feature Importance Chart
+
+st.divider()
+st.subheader("📊 Feature Importance")
+
+features = [
+    "Relative Compactness",
+    "Surface Area",
+    "Wall Area",
+    "Roof Area",
+    "Overall Height",
+    "Orientation",
+    "Glazing Area",
+    "Glazing Distribution"
+]
+
+importance = model.feature_importances_
+
+fig, ax = plt.subplots(figsize=(9, 5))
+
+ax.barh(features, importance)
+
+ax.set_xlabel("Importance")
+ax.set_title("Factors Affecting HVAC Cooling Load")
+
+ax.invert_yaxis()
+
+st.pyplot(fig)
+plt.close(fig)
+
+# Actual vs Predicted Cooling Load
+st.divider()
+
+st.subheader("📈 Actual vs Predicted Cooling Load")
+
+comparison = pd.read_csv("comparison.csv")
+
+st.line_chart(
+    comparison[["Actual", "Predicted"]],
+    x_label="Test Sample",
+    y_label="Cooling Load"
 )
