@@ -93,3 +93,16 @@ plt.close(fig)
 st.caption(
     "HVAC Machine Learning Project | Mechanical Engineering"
 )
+
+# Actual vs Predicted Cooling Load
+st.divider()
+
+st.subheader("📈 Actual vs Predicted Cooling Load")
+
+comparison = pd.read_csv("comparison.csv")
+
+st.line_chart(
+    comparison[["Actual", "Predicted"]],
+    x_label="Test Sample",
+    y_label="Cooling Load"
+)
